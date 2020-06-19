@@ -1,0 +1,203 @@
+input 绑定 获取输入的value
+	<input bindinput="usernameinput" type="email" name="username" value="" placeholder="请输入您的手机号或邮箱"/>      
+	
+	data:{
+		username:''
+	}
+	
+	usernameinput: function (e) {
+		var username = e.detail.value               // e.detail.value 是输入的值
+		this.setData({
+		  username: username
+		});
+		console.log(username)
+	},
+	
+发送url请求	
+	wx.request({								
+		url:'',
+		data:{
+			
+		},
+		header:{
+		
+		},
+		success:function(res){
+		
+		}
+	})	
+	
+	
+提示框  运行中
+    wx.showLoading({
+      title: '登录中...',
+    });
+
+
+提示框  可设置超时时间
+	wx.showToast({
+	  title: res.data.msg,
+	  icon: 'none',
+	  duration: 2000
+	})
+
+
+template模板
+	<template name="header">
+		<view>...</views>
+	</template>
+	可以作为公共模板 在 wxml中引入
+	<template is="header" data="{{...item}}"/>
+	data为 js中的 data
+	data:{
+		item:{
+			'age':18,
+			'sex':2
+		}
+	}
+	data使用  {{ age }}
+
+
+
+获取|设置cookie
+	var token = wx.getStorageSync("SHARES_TOKEN");
+	wx.setStorageSync("SHARES_TOKEN", res.data.token)
+	在url中构造cookie
+		header: { 
+	  'content-type': 'application/json' ,
+	  'Cookie':token
+	  },	
+
+
+从服务器获取数据  并展示到前台
+	onLoad方法中：
+		var self = this
+		self.setData({
+			data: res.data
+		})
+	模板中:
+		<view wx:for="{{data}}">
+			{{item.key}}
+		</view>
+
+页面跳转：
+
+	1/绑定事件后
+		wx.navigateTo({
+			url:'sdfdsfsdf.com'
+		})
+		保留当前页面，跳转到应用内的某个页面，但是不能跳到tabbar页面
+		
+		wx.redirectTo
+		关闭当前页面，跳转到应用内的某个页面，但是不允许跳转到 tabbar 页面。
+		wx.navigateBack
+		关闭当前页面，返回上一页面或多级页面。可通过 getCurrentPages() 获取当前的页面栈，决定需要返回几层。
+
+	2/页面组件跳转
+		<navigator url="/page/index/index" open-type="navigateBack" hover-class="other-navigator-hover">
+			关闭当前页面，返回上一级
+		</navigator>
+
+	open-type:
+		默认：navigate  跳转到新页面
+		redirect：当前页打开
+		switchTab：切换tab
+		navigateBack：关闭当前页面，返回上一级
+		
+		
+换行
+	\n    也可以在data中   br:'\n'   {{br}}
+	注意  在view标签中无效  必须在text标签中使用
+	<text class="float_l" style="width:25%;">{{item.price}}{{br}}{{item.gain}}%</text>
+	
+	
+循环数据里获取 相应的id
+	view中    bindtap="ding" data-index="{{item.id}}"
+	js中  	  ding:function(e){
+				var id = e.currentTarget.dataset.index;
+			}
+
+
+数据处理
+	根目录下建立文件夹  filters
+	建一个wxs文件
+		//传入金额换算成单位万元
+		var fnMoney = function (money) {
+		  money = parseFloat(money) / 10000;
+		  money = money % 1 == 0 ? money : money.toFixed(2);
+		  return money;
+		};
+
+		module.exports = {
+		  fnMoney: fnMoney
+		}
+	
+	wxml引入wxs
+	<wxs src="../../filters/numFormat.wxs" module="filters"></wxs>
+	
+	使用
+	{{filters.fnMoney(item.money)}}
+
+
+
+难点处理
+	首先点击触发事件 将当前的index值写入cookie
+		var a = e.currentTarget.dataset.index
+	存在则删除，不存在则写入
+		if(val.match(a) > 0 ){
+		  val = val.replace(a," ");
+		}else{
+		  val = val + ';' + a;
+		}
+		wx.setStorageSync("ding",val);
+	
+	onLoad中初始化数据
+		var ding = wx.getStorageSync('ding')
+		this.setData({
+		  ding:ding
+		})
+	
+	filters 中的 wxs 加入方法 判断当前code是否在ding中
+		ding.match(str)>0 => true 
+	
+	wxml中
+		{{filters.function(item.code,ding)}}
+
+
+
+获取循环数据中当前点击的某个元素(id)
+	<view id="{{item.strategy_id}}" catchtap="bindtid">button</view>
+	js:
+	  bindtid:function(e){
+		var tid = e.target.id;
+		console.log(tid);
+		this.setData({
+			tid:tid
+		})
+	  },
+
+
+页面展示切换
+	wx:if="{{showpolicy2}}"
+	设置  true false
+
+
+radio中发生 change事件
+	设置改变后的值
+		function(e):
+			e.detail.value
+
+
+
+
+
+
+
+
+
+
+
+	
+	
+	
+	

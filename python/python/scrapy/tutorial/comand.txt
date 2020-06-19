@@ -1,0 +1,29 @@
+startproject	创建项目
+scrapy strartproject scrapychina
+
+genspider       根据蜘蛛模板创建蜘蛛
+
+
+settings		设置相关参数
+scrapy settings --get DOWNLOAD_DELAY		得到蜘蛛的下载延迟
+scrapy settings --get BOT_NAME				得到蜘蛛的名字
+
+
+runspider		基于文件运行爬虫
+
+
+shell			调试
+scrapy shell http://www.scrapyd.cn          调试打开url
+>>>response.css("title").extract_first()	获取信息
+
+
+fetch			模拟蜘蛛下载页面 看是否是想要的效果
+scrapy fetch http://www.scrapyd.cn
+scrapy fetch http://www.scrapyd.cn >d:/3.html		保存页面
+
+
+view			fetch类似都是查看蜘蛛看到的是否和你看到的一致
+scrapy view http://www.scrapyd.cn
+
+
+version			查看scrapy版本
