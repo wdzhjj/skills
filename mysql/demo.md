@@ -6,3 +6,95 @@
 		ORDER BY count desc
 		limit 10
 		
+
+	用一条SQL 语句 查询出每门课都大于80 分的学生姓名
+	
+	select name from stu group by name where id<100 having min(grade)>80
+		group by name 通过名字分组 
+		having min()/count()/max()  分组=》相同的名字 拥有的最大/最小/总数 + 条件
+		where是聚合前的筛选，having是聚合后对筛选
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
