@@ -81,3 +81,32 @@
 		删除
 		firewall-cmd --zone= public --remove-port=80/tcp --permanent
 		
+#### centos7 搭建ftp
+		yum -y install vsftpd   安装
+		alias stl = 'systemctl'
+		stl start vsftpd.service  启动
+		ps =ef | grep vsftpd     查看进程
+		
+		firewall-cmd --zone=public --add-port=21/tcp --permanent    # 添加 21 端口
+		firewall-cmd --reload        # 重新载入
+		firewall-cmd --zone=public --list-ports    # 查看所有已开放的端口
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		
